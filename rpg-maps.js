@@ -8,6 +8,7 @@ class RpgMap extends HTMLElement {
     const shadow = this.shadowRoot;
     const src = this.getAttribute("src");
     const caption = this.getAttribute("caption");
+    const scale = parseFloat(this.getAttribute("scale")) || 2.5;
 
     /** @type {HTMLImageElement} */
     const image = createElement("img", { src, class: "rpg-map-image" });
@@ -17,7 +18,7 @@ class RpgMap extends HTMLElement {
 
     image.addEventListener("mousemove", event => {
       throttle(() => {
-        image.setAttribute("style", `transform-origin: ${event.offsetX}px ${event.offsetY}px; transform: scale(${Math.min(2.5, image.naturalHeight / image.clientHeight)})`);
+        image.setAttribute("style", `transform-origin: ${event.offsetX}px ${event.offsetY}px; transform: scale(${Math.min(scale, image.naturalHeight / image.clientHeight)})`);
       }, 200)();
     });
     image.addEventListener("mouseleave", () => {
@@ -37,7 +38,7 @@ class RpgMap extends HTMLElement {
     
     .rpg-map-image {
       max-width: 100%;
-      transition: transform 300ms ease-in-out;
+      transition: transform var(--rpg-map-transform-duration, 300ms) var(--rpg-map-transform-function, ease-in-out);
     }
     
     .rpg-map-caption {
@@ -83,21 +84,21 @@ function createElement(type, props, ...children) {
 }
 
 /**
- * Throttles a function to only run after a given delay.
+ * Throttles a function to run no more frequently than a given delay.
  * @param {function} cb The function to be run throttled.
  * @param {number} delay The delay in milliseconds
  * @returns {function}
  */
-function throttle(cb, delay = 1000) {
+function throttle(callback, delay = 1000) {
   let waiting = false;
   let waitingArgs;
-  const timeoutFunc = () => {
+  const timeoutFn = () => {
     if (waitingArgs == null) {
       waiting = false;
     } else {
-      cb(...waitingArgs);
+      callback(...waitingArgs);
       waitingArgs = null;
-      setTimeout(timeoutFunc, delay);
+      setTimeout(timeoutFn, delay);
     }
   }
 
@@ -107,9 +108,9 @@ function throttle(cb, delay = 1000) {
       return;
     }
 
-    cb(...args);
+    callback(...args);
     waiting = true;
 
-    setTimeout(timeoutFunc, delay);
+    setTimeout(timeoutFn, delay);
   }
 }
