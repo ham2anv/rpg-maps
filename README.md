@@ -31,5 +31,5 @@ following properties on the map's parent to change its style:
   the transition of the zoom effect. Defaults: `300ms`, `ease-in-out`.
 
 ## Credits
-This repository contains map image created by Dyson Logos. For more great maps
+This repository contains a map image created by Dyson Logos. For more great maps
 for personal or commercial use, visit their site at <https://dysonlogos.blog>.
