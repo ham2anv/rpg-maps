@@ -10,7 +10,7 @@ Anywhere you want to place a map, include a `<rpg-map>` element with `src`
 pointing to the map's image file.
 
 ## \<rpg-map\>
-This element places the map on your page. It takes two attributes:
+This element places the map on your page. It takes three attributes:
 
 - `src`: The source image for your map.
 - `caption`: An optional caption for your image, useful for crediting the artist.
@@ -29,3 +29,7 @@ following properties on the map's parent to change its style:
   `solid`, `black`.
 - `--rpg-map-transition-duration` and `--rpg-map-transition-function`: Define
   the transition of the zoom effect. Defaults: `300ms`, `ease-in-out`.
+
+## Credits
+This repository contains map image created by Dyson Logos. For more great maps
+for personal or commercial use, visit their site at <https://dysonlogos.blog>.
